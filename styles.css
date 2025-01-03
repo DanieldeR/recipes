@@ -1,0 +1,30 @@
+.recipe {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.recipe.active {
+    display: block;
+}
+
+.error {
+    color: red;
+}
+
+.controls { /* Style the container for the controls */
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Vertically align items */
+    margin-bottom: 10px;
+}
+
+.controls label {
+    margin-right: 5px; /* Add spacing between labels and inputs */
+}
+
+.controls input,
+.controls select {
+    margin-right: 10px;
+    padding: 5px;
+}
