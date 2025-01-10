@@ -27,21 +27,19 @@
 {
 "name": "Cheerio Squares",
 "ingredients": [
-"2 cups cheerios",
-"1 cup peanuts",
-"\u00bd cup corn syrup",
+"\u00bd margarine",
 "1 cup brown sugar",
-"20 peanut butter",
+"\u00bd cup corn syrup",
+"\u00bd peanut butter",
 "1 tsp vanilla extract",
-"margarine"
+"1 cup peanuts",
+"2 cups cheerios",
+"\u00bd corn flakes" 
 ],
 "instructions": [
-"Boil margarine (amount not specified in the image).",
-"Remove margarine from heat (implicit instruction based on boiling instruction).",
-"Add brown sugar, corn syrup, and peanut butter to the pot (amount of peanut butter not specified in the image).",
-"Beat the mixture with a spoon (implicit instruction based on adding ingredients).",
-"Add vanilla extract to the mixture.",
-"Add cheerios and peanuts to the mixture.",
+"Boil margarine, brown sugar, and corn syrup for 1 min.",
+"Add vanilla extract and peanut butter to to the mixture. Then beat the mixture with a spoon until blended.",
+"Add cheerios, corn flakes, and peanuts to the mixture.",
 "Press the mixture into a 9x13 pan."
 ]
 },
