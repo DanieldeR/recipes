@@ -1,3 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+#recipes-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto 0; /* Added top margin */
+}
+
 .recipe {
     display: none;
     border: 1px solid #ccc;
@@ -13,18 +27,32 @@
     color: red;
 }
 
-.controls { /* Style the container for the controls */
-    display: flex; /* Use flexbox for horizontal layout */
-    align-items: center; /* Vertically align items */
-    margin-bottom: 10px;
+.controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increased margin */
 }
 
 .controls label {
-    margin-right: 5px; /* Add spacing between labels and inputs */
+    margin-right: 5px;
 }
 
 .controls input,
 .controls select {
     margin-right: 10px;
     padding: 5px;
+}
+
+.recipe img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+.recipe img.small{
+    max-width: 50%;
+}
+.recipe img.medium{
+    max-width: 75%;
 }

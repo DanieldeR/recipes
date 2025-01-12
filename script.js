@@ -86,6 +86,10 @@ function createRecipeHTML(recipe){
     if (recipe.description) {
         recipeHTML += `<p>${recipe.description}</p>`;
     }
+    if (recipe.image) {
+        const imagePath = `assets/${recipe.image}`; // Assuming the image filename is stored in the "image" property
+        recipeHTML += `<img src="${imagePath}" alt\="</span>{recipe.name} image">`;
+      }
     if (recipe.ingredients) {
         recipeHTML += "<h3>Ingredients</h3><ul>";
         recipe.ingredients.forEach(ingredient => {
