@@ -25,42 +25,49 @@
         .recipe-card img {
             max-width: 100%;
             height: auto;
-            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+            border-radius: 0.5rem 0.5rem 0 0;
         }
         .recipe-card {
-            @apply rounded-lg shadow-md overflow-hidden bg-white flex flex-col border border-gray-300; /* Added border */
-            min-height: 25rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+            overflow: hidden;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            width: 300px; /* Set a fixed width */
         }
         .recipe-card img {
             max-width: 100%;
-            height: 15rem; /* Fixed image height */
+            height: 12rem;
             object-fit: cover;
             border-radius: 0.5rem 0.5rem 0 0;
         }
         .recipe-card .card-content{
-            flex-grow: 1; /* Allow content to take up available space */
+            flex-grow: 1;
             padding: 1rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+        #all-recipes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            justify-items: center;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-7xl mx-auto">
-        <div class="max-w-7xl mx-auto">
-            <h1 class="text-3xl font-bold mb-4 text-center">All Recipes</h1>
-    
-            <div class="controls flex flex-col md:flex-row items-start md:items-center mb-6 w-full">
-                <div class="flex flex-col md:flex-row w-full md:w-auto mb-4 md:mb-0 md:mr-4">
-                    <label for="search-input" class="mr-2 md:mb-0 text-gray-700">Search:</label>
-                    <input type="text" id="search-input" placeholder="Search by title..." class="border border-gray-300 rounded px-2 py-1 w-full md:w-auto">
-                </div>
-            </div>
-    
-            <div id="all-recipes-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <h1 class="text-3xl font-bold mb-4 text-center">All Recipes</h1>
+        <div class="controls flex flex-col md:flex-row items-start md:items-center mb-6 w-full">
+            <div class="flex flex-col md:flex-row w-full md:w-auto mb-4 md:mb-0 md:mr-4">
+                <label for="search-input" class="mr-2 md:mb-0 text-gray-700">Search:</label>
+                <input type="text" id="search-input" placeholder="Search by title..." class="border border-gray-300 rounded px-2 py-1 w-full md:w-auto">
             </div>
         </div>
+        <div id="all-recipes-container"> </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -73,7 +80,7 @@
                     function displayRecipes(recipesToDisplay){
                         container.innerHTML = "";
                         recipesToDisplay.forEach((recipe, index) => {
-                            const card = createRecipeCard(recipe, index); // Pass the index
+                            const card = createRecipeCard(recipe, index);
                             container.appendChild(card);
                         });
                     }
@@ -89,13 +96,11 @@
                 });
         });
 
-        function createRecipeCard(recipe, index) { // Accept the index
+        function createRecipeCard(recipe, index) {
             const card = document.createElement('div');
-            card.className = 'recipe-card cursor-pointer'; // Add cursor style
+            card.className = 'recipe-card cursor-pointer';
             card.addEventListener('click', () => {
-                // Store the selected recipe index in local storage
                 localStorage.setItem('selectedRecipeIndex', index);
-                // Redirect to the index.html page
                 window.location.href = 'recipe.html';
             });
 
