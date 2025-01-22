@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for better image handling and list styling */
+        .recipe img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .recipe ul, .recipe ol {
+            padding-left: 1.5rem; /* Use direct padding instead of Tailwind */
+            list-style-position: inside; /* Ensure bullets/numbers are inside padding */
+        }
+        .recipe li{
+            @apply mb-1
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        h1{
+            color: #38291A;
+        }
+        h2, h3{
+            color: #58442F;
+        }
+        .recipe p {
+            line-height: 1.6;
+            color: #555;
+        }
+        .recipe h3 {
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl font-bold">Recipes</h1>
+                <a href="index.html" class="inline-block bg-gray-200 hover:bg-gray-300 rounded px-4 py-2 text-gray-700">All Recipes</a>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between mb-2 w-full">
+                <div class="flex flex-col w-full md:flex-row md:w-auto items-center mb-1 md:mb-0">
+                    <div class="controls flex items-center w-full md:w-auto">
+                        <label for="search-input" class="mr-2 text-gray-700">Search:</label>
+                        <input type="text" id="search-input" placeholder="Search by title..." class="border border-gray-300 rounded px-2 py-1 w-full md:w-64">
+                    </div>
+                </div>
+                <div class="controls flex w-full md:w-auto">
+                    <label for="recipe-select" class="mr-2 text-gray-700">Select:</label>
+                    <select id="recipe-select" class="border border-gray-300 rounded px-2 py-1 w-full">
+                        <option value="">-- Select a recipe --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="recipes-container" class="px-6 py-1 rounded-b-lg">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

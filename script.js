@@ -1,5 +1,20 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let recipes = []; // Store the recipes in a variable accessible to all functions
+document.addEventListener('DOMContentLoaded', function () {
+    let recipes = [];
+
+    const selectedRecipeIndex = localStorage.getItem('selectedRecipeIndex');
+
+    if (selectedRecipeIndex !== null) {
+        // Remove the item from local storage so it doesn't persist
+        localStorage.removeItem('selectedRecipeIndex');
+
+        // Parse the index to an integer
+        const index = parseInt(selectedRecipeIndex);
+        fetch('recipes.json')
+        .then(response => response.json())
+        .then(recipes => {
+            displayRecipe(recipes, index);
+        })
+    }
 
     fetch('recipes.json')
         .then(response => {
@@ -9,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            recipes = data; // Assign the fetched data to the recipes variable
+            recipes = data;
             populateDropdown(recipes);
             displayRecipe(recipes, 0);
         })
@@ -19,13 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     const searchInput = document.getElementById('search-input');
-    if (searchInput){
-        searchInput.addEventListener('input', function() {
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
             const searchTerm = this.value.toLowerCase();
             filterRecipes(recipes, searchTerm);
         });
     }
-
 });
 
 function populateDropdown(recipes) {
@@ -39,7 +53,7 @@ function populateDropdown(recipes) {
         select.appendChild(option);
     });
 
-    select.addEventListener('change', function() {
+    select.addEventListener('change', function () {
         const selectedIndex = parseInt(this.value);
         if (!isNaN(selectedIndex) && selectedIndex >= 0 && selectedIndex < recipes.length) {
             displayRecipe(recipes, selectedIndex);
@@ -54,56 +68,72 @@ function displayRecipe(recipes, index) {
     const recipesContainer = document.getElementById('recipes-container');
     if (!recipesContainer) return;
 
-    if (!recipes || recipes.length == 0) {
+    if (!recipes || recipes.length === 0) {
         displayError("No recipes found.");
         return;
     }
 
     if (index < 0 || index >= recipes.length) {
-        return; //Invalid index
+        return;
     }
 
-    let recipe = recipes[index];
+    const recipe = recipes[index];
 
     let recipeDiv = document.getElementById(`recipe-${index}`);
-    if (!recipeDiv){
+    if (!recipeDiv) {
         recipeDiv = document.createElement('div');
         recipeDiv.id = `recipe-${index}`;
-        recipeDiv.classList.add('recipe');
+        recipeDiv.classList.add('recipe', 'hidden', 'p-4', 'border', 'border-gray-300', 'mb-4', 'rounded-lg'); // Added rounded-lg here
         recipesContainer.appendChild(recipeDiv);
     }
     recipeDiv.innerHTML = createRecipeHTML(recipe);
-    recipeDiv.classList.add('active');
+    recipeDiv.classList.remove('hidden');
 }
 
-function hideAllRecipes(){
-    const recipes = document.querySelectorAll(".recipe")
-    recipes.forEach(recipe => recipe.classList.remove("active"))
+function hideAllRecipes() {
+    const recipes = document.querySelectorAll(".recipe");
+    recipes.forEach(recipe => recipe.classList.add('hidden'));
 }
 
-function createRecipeHTML(recipe){
-    let recipeHTML = `<h2>${recipe.name}</h2>`;
-    if (recipe.description) {
-        recipeHTML += `<p>${recipe.description}</p>`;
-    }
+function createRecipeHTML(recipe) {
+    let recipeHTML = `
+        <div class="recipe">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">${recipe.name}</h2>`; // Title styling
+
     if (recipe.image) {
-        const imagePath = `assets/${recipe.image}`; // Assuming the image filename is stored in the "image" property
-        recipeHTML += `<img src="${imagePath}" alt\="</span>{recipe.name} image">`;
-      }
+        const imagePath = `assets/${recipe.image}`;
+        recipeHTML += `<img class="w-full rounded-lg" src="${imagePath}" alt="${recipe.name} image">`; // Image styling
+    }
+
+    if (recipe.description) {
+        recipeHTML += `<p class="text-gray-700 mb-4">${recipe.description}</p>`; // Description styling
+    }
+
     if (recipe.ingredients) {
-        recipeHTML += "<h3>Ingredients</h3><ul>";
+        recipeHTML += `<h3 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Ingredients</h3><ul class="list-disc text-gray-700">`;
         recipe.ingredients.forEach(ingredient => {
             recipeHTML += `<li>${ingredient}</li>`;
         });
-        recipeHTML += "</ul>";
+        recipeHTML += `</ul>`;
     }
+
     if (recipe.instructions) {
-        recipeHTML += "<h3>Instructions</h3><ol>";
-        recipe.instructions.forEach(instruction => {
+        recipeHTML += `<h3 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Instructions</h3><ol class="list-decimal text-gray-700">`;
+        recipe.instructions.forEach((instruction, index) => {
             recipeHTML += `<li>${instruction}</li>`;
         });
-        recipeHTML += "</ol>";
+        recipeHTML += `</ol>`;
     }
+
+    if (recipe.nutrition) {
+        recipeHTML += `<h3 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Nutrition</h3><div class="text-gray-700">`;
+        for (const [key, value] of Object.entries(recipe.nutrition)) {
+            recipeHTML += `<p>${key}: ${value}</p>`;
+        }
+        recipeHTML += `</div>`;
+    }
+
+    recipeHTML += `</div>`;
     return recipeHTML;
 }
 
@@ -112,7 +142,7 @@ function filterRecipes(recipes, searchTerm) {
     const recipesContainer = document.getElementById('recipes-container');
     if (!recipesContainer) return;
 
-    if (!recipes || recipes.length == 0) {
+    if (!recipes || recipes.length === 0) {
         displayError("No recipes found.");
         return;
     }
@@ -127,7 +157,7 @@ function filterRecipes(recipes, searchTerm) {
 function displayError(message) {
     const recipesContainer = document.getElementById('recipes-container');
     if (recipesContainer) {
-        recipesContainer.innerHTML = `<p class="error">${message}</p>`;
+        recipesContainer.innerHTML = `<p class="text-red-500">${message}</p>`; // Tailwind class for error message
     } else {
         console.error("recipes-container element not found in HTML to display error: " + message);
     }

@@ -1,58 +1,22 @@
-body {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    font-family: sans-serif;
-    margin: 20px;
+/* No CSS needed! Tailwind handles styling. If you have any custom styles you can put them here */
+/* For example, if you wanted to keep the error class */
+.error {
+    @apply text-red-500; /* Use tailwind color utilities instead of hardcoded red */
 }
 
-#recipes-container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto 0; /* Added top margin */
+/* Example of adding a custom utility class */
+.recipe-image-small {
+    @apply max-w-1/2;
+}
+
+.recipe-image-medium {
+    @apply max-w-3/4;
 }
 
 .recipe {
-    display: none;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
+    @apply hidden border border-gray-300 p-2 mb-2;
 }
 
 .recipe.active {
-    display: block;
-}
-
-.error {
-    color: red;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px; /* Increased margin */
-}
-
-.controls label {
-    margin-right: 5px;
-}
-
-.controls input,
-.controls select {
-    margin-right: 10px;
-    padding: 5px;
-}
-
-.recipe img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px auto;
-}
-
-.recipe img.small{
-    max-width: 50%;
-}
-.recipe img.medium{
-    max-width: 75%;
+    @apply block;
 }
