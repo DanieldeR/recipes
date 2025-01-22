@@ -3,17 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const selectedRecipeIndex = localStorage.getItem('selectedRecipeIndex');
 
+    let index = 0;
+
     if (selectedRecipeIndex !== null) {
         // Remove the item from local storage so it doesn't persist
         localStorage.removeItem('selectedRecipeIndex');
 
         // Parse the index to an integer
-        const index = parseInt(selectedRecipeIndex);
-        fetch('recipes.json')
-        .then(response => response.json())
-        .then(recipes => {
-            displayRecipe(recipes, index);
-        })
+        index = parseInt(selectedRecipeIndex);
     }
 
     fetch('recipes.json')
@@ -26,12 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             recipes = data;
             populateDropdown(recipes);
-            displayRecipe(recipes, 0);
+            displayRecipe(recipes, index);
         })
         .catch(error => {
             console.error('Error fetching or parsing recipes:', error);
             displayError("Failed to load recipes.");
         });
+    
 
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
